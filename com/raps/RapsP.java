@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
+import java.util.Scanner;
 
 public class RapsP {
 
-	public void method() throws SQLException {
+	public void method() throws ClassNotFoundException, SQLException  {
 		try {
+			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/raps","root","Anil@1994");
 			PreparedStatement statement = connection.prepareStatement("insert into custemerData (ProductId ,NameProduct,Desciption,Price ,Quantity)"+"values(?,?,?,?,?)");
@@ -77,24 +80,16 @@ public class RapsP {
 			statement.close();
 			
 			System.out.println("done.....");
-			
-		} catch (ClassNotFoundException e) {
+		
+	
+		}catch (SQLNonTransientConnectionException e) {
 			
 			e.printStackTrace();
 		}
-		
-		
-
+	
 	}
 
-	private String value() {
-		
-		return null;
-	}
-
-
-
-public static void main(String[] args) throws SQLException
+public static void main(String[] args) throws SQLException, Exception
 {
 	RapsP obj= new RapsP();
 	obj.method();
